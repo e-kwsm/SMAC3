@@ -46,25 +46,25 @@ install-dev:
 	pre-commit install
 
 check-black:
-	$(BLACK) ${SOURCE_DIR} --check || :
-	$(BLACK) ${EXAMPLES_DIR} --check || :
-	$(BLACK) ${TESTS_DIR} --check || :
+	-$(BLACK) ${SOURCE_DIR} --check
+	-$(BLACK) ${EXAMPLES_DIR} --check
+	-$(BLACK) ${TESTS_DIR} --check
 
 check-isort:
-	$(ISORT) ${SOURCE_DIR} --check || :
-	$(ISORT) ${EXAMPLES_DIR} --check || :
-	$(ISORT) ${TESTS_DIR} --check || :
+	-$(ISORT) ${SOURCE_DIR} --check
+	-$(ISORT) ${EXAMPLES_DIR} --check
+	-$(ISORT) ${TESTS_DIR} --check
 
 check-pydocstyle:
-	$(PYDOCSTYLE) ${SOURCE_DIR} || :
+	-$(PYDOCSTYLE) ${SOURCE_DIR}
 
 check-mypy:
-	$(MYPY) ${SOURCE_DIR} || :
+	-$(MYPY) ${SOURCE_DIR}
 
 check-flake8:
-	$(FLAKE8) ${SOURCE_DIR} || :
-	$(FLAKE8) ${EXAMPLES_DIR} --check || :
-	$(FLAKE8) ${TESTS_DIR} || :
+	-$(FLAKE8) ${SOURCE_DIR}
+	-$(FLAKE8) ${EXAMPLES_DIR}
+	-$(FLAKE8) ${TESTS_DIR}
 
 check: check-black check-isort check-mypy check-flake8 check-pydocstyle
 
@@ -125,7 +125,7 @@ clean-data:
 	# remove all files that could have been left by test cases or by manual runs
 	# feel free to add more lines
 	find . -maxdepth 3 -iname 'smac3-output_*-*-*_*' | tac | while read -r TESTDIR ; do rm -Rf "$${TESTDIR}" ; done
-	find . -maxdepth 3 -iname '*.lock' -exec rm {} \;
+	find . -maxdepth 3 -iname '*.lock' -delete
 	rm -Rf run_*
 	rm -Rf test/test_files/scenario_test/tmp_output_*
 	rm -Rf test/test_files/test_*_run1
