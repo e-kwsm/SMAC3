@@ -39,7 +39,7 @@ extras_require = {
         "flake8",
         "pre-commit",
         "pylint",
-        "mkdocs",
+        "mkdocs>=0.28.0",
         "mkdocs-material",
         "mkdocs-autorefs",
         "mkdocs-gen-files",
